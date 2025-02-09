@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add-column-into-team-project_id" author="Ballo.Alexey">
+        <addColumn tableName="team">
+            <column name="project_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add-constraint_project_id" author="Ballo.Alexey">
+        <addUniqueConstraint tableName="team" columnNames="project_id"/>
+    </changeSet>
+
+    <changeSet id="add-column-into-member" author="Ballo.Alexey">
+        <addColumn tableName="member">
+            <column name="authorities_role" type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add-fk-project_id" author="">
+        <addForeignKeyConstraint baseTableName="team"
+                                 baseColumnNames="project_id"
+                                 constraintName="team_project"
+                                 referencedTableName="project"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="drop-column-team-from-project" author="Ballo.Alexey">
+        <dropColumn tableName="project"
+                    columnName="team_id"/>
+    </changeSet>
+
+    <changeSet id="drop-tables" author="Ballo.Alexey">
+        <dropAllForeignKeyConstraints baseTableName="team_projects"/>
+        <dropAllForeignKeyConstraints baseTableName="team_membership"/>
+        <dropTable tableName="team_membership"/>
+        <dropTable tableName="team_projects"/>
+    </changeSet>
+
+    <changeSet id="create-table-team_member" author="Ballo.Alexey">
+        <createTable tableName="team_member">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="member_id" type="bigint"/>
+            <column name="team_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-fk-team_member" author="Ballo.Alexey">
+        <addForeignKeyConstraint baseTableName="team_member"
+                                 baseColumnNames="member_id"
+                                 constraintName="team_member_fk"
+                                 referencedTableName="member"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="team_member"
+                                 baseColumnNames="team_id"
+                                 constraintName="fk_team_member"
+                                 referencedTableName="team"
+                                 referencedColumnNames="id"/>
+        <addUniqueConstraint tableName="team_member" columnNames="team_id, member_id"/>
+    </changeSet>
+
+</databaseChangeLog>

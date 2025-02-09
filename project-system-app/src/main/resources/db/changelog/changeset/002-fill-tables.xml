@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert-data-member" author="Ballo.Alexey">
+        <insert tableName="member">
+            <column name="email" value="user1@ya.ru"/>
+            <column name="firstname" value="Петр"/>
+            <column name="lastname" value="Петров"/>
+            <column name="middlename" value="Петрович"/>
+            <column name="position" value="Manager"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+
+        <insert tableName="member">
+            <column name="email" value="iiivan@gmail.com"/>
+            <column name="firstname" value="Иван"/>
+            <column name="lastname" value="Иванов"/>
+            <column name="position" value="Team leader"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+
+        <insert tableName="member">
+            <column name="email" value="user3@example.com"/>
+            <column name="account" value="vaaasya"/>
+            <column name="firstname" value="Василий"/>
+            <column name="lastname" value="Васильев"/>
+            <column name="middlename" value="Васильевич"/>
+            <column name="position" value="junior developer"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+
+        <insert tableName="member">
+            <column name="email" value="dimon@example.com"/>
+            <column name="account" value="deamon1337"/>
+            <column name="firstname" value="Дмитрий"/>
+            <column name="lastname" value="Воробьев"/>
+            <column name="middlename" value="Сергеевич"/>
+            <column name="position" value="middle developer"/>
+            <column name="status" value="DELETED"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-data-project" author="Ballo.Alexey">
+        <insert tableName="project">
+            <column name="name" value="project 1"/>
+            <column name="description" value="какой-то проект"/>
+            <column name="status" value="DRAFT"/>
+        </insert>
+
+        <insert tableName="project">
+            <column name="name" value="project 2"/>
+            <column name="description" value="какой-то проект 2"/>
+            <column name="status" value="DRAFT"/>
+        </insert>
+
+        <insert tableName="project">
+            <column name="name" value="project management system"/>
+            <column name="description" value="какой-то проект 3"/>
+            <column name="status" value="IN_DEVELOPMENT"/>
+        </insert>
+
+        <insert tableName="project">
+            <column name="name" value="online shop"/>
+            <column name="description" value="онлайн магазин"/>
+            <column name="status" value="IN_TESTING"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-data-team" author="Ballo.Alexey">
+        <insert tableName="team">
+            <column name="id" valueSequenceNext="team_id_seq"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="id" valueSequenceNext="team_id_seq"/>
+        </insert>
+
+        <insert tableName="team">
+            <column name="id" valueSequenceNext="team_id_seq"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-data-team_membership" author="Ballo.Alexey">
+        <insert tableName="team_membership">
+            <column name="team_id" value="1"/>
+            <column name="member_id" value="1"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+        <insert tableName="team_membership">
+            <column name="team_id" value="2"/>
+            <column name="member_id" value="3"/>
+            <column name="role" value="DEVELOPER"/>
+        </insert>
+        <insert tableName="team_membership">
+            <column name="team_id" value="2"/>
+            <column name="member_id" value="2"/>
+            <column name="role" value="ANALYST"/>
+        </insert>
+        <insert tableName="team_membership">
+            <column name="team_id" value="2"/>
+            <column name="member_id" value="1"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+        <insert tableName="team_membership">
+            <column name="team_id" value="3"/>
+            <column name="member_id" value="1"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+        <insert tableName="team_membership">
+            <column name="team_id" value="3"/>
+            <column name="member_id" value="2"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-data-team_projects" author="Ballo.Alexey">
+        <insert tableName="team_projects">
+            <column name="projects_id" value="1"/>
+            <column name="team_id" value="1"/>
+        </insert>
+        <insert tableName="team_projects">
+            <column name="projects_id" value="2"/>
+            <column name="team_id" value="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-team_id-value-into-projects" author="Ballo.Alexey">
+        <update tableName="project">
+            <column name="team_id" value="1"/>
+            <where>id=1</where>
+        </update>
+        <update tableName="project">
+            <column name="team_id" value="3"/>
+            <where>id=2</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="insert-data-task" author="Ballo.Alexey">
+        <insert tableName="task">
+            <column name="name" value="task 1"/>
+            <column name="creation_date" value="2023-05-26 14:53:15.716000 +00:00"/>
+            <column name="complexity" value="10"/>
+            <column name="deadline" value="2024-01-30 21:00:00.000000 +00:00"/>
+            <column name="last_modified_date" value="2023-05-26 14:53:15.716000 +00:00"/>
+            <column name="status" value="NEW"/>
+        </insert>
+
+        <insert tableName="task">
+            <column name="name" value="task 2"/>
+            <column name="creation_date" value="2023-05-26 14:53:15.716000 +00:00"/>
+            <column name="complexity" value="500"/>
+            <column name="deadline" value="2024-01-30 21:00:00.000000 +00:00"/>
+            <column name="last_modified_date" value="2023-05-26 14:53:15.716000 +00:00"/>
+            <column name="description" value="какая-то задача"/>
+            <column name="status" value="NEW"/>
+            <column name="assignee_id" value="1"/>
+            <column name="author_id" value="2"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

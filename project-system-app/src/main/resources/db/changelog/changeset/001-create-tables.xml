@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="Ballo.Alexey" id="create-table-member">
+        <createTable tableName="member">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="account" type="text">
+                <constraints unique="true"/>
+            </column>
+            <column name="email" type="text">
+                <constraints unique="true"/>
+            </column>
+            <column name="firstname" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middlename" type="text"/>
+            <column name="position" type="text"/>
+            <column name="status" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Ballo.Alexey" id="create-table-project">
+        <createTable tableName="project">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="team_id" type="bigint">
+                <constraints/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Ballo.Alexey" id="create-table-team">
+        <createTable tableName="team">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-fk-constraint" author="Ballo.Alexey">
+        <addForeignKeyConstraint baseTableName="project"
+                                 baseColumnNames="team_id"
+                                 referencedTableName="team"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_project_team"/>
+    </changeSet>
+
+    <changeSet id="create-table-team_projects" author="Ballo.Alexey">
+        <createTable tableName="team_projects">
+            <column name="projects_id" type="bigint">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="team_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-fk-constraints-team_projects" author="Ballo.Alexey">
+    <addForeignKeyConstraint baseTableName="team_projects"
+                             baseColumnNames="projects_id"
+                             referencedTableName="project"
+                             referencedColumnNames="id"
+                             constraintName="fk_projects_id"/>
+    <addForeignKeyConstraint baseTableName="team_projects"
+                             baseColumnNames="team_id"
+                             referencedTableName="team"
+                             referencedColumnNames="id"
+                             constraintName="fk_team_id"/>
+    </changeSet>
+
+    <changeSet id="create-table-team_membership" author="Ballo.Alexey">
+        <createTable tableName="team_membership">
+            <column name="member_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="team_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-fk-constraints-team_membership" author="Ballo.Alexey">
+        <addForeignKeyConstraint baseTableName="team_membership"
+                                 baseColumnNames="member_id"
+                                 referencedTableName="member"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_member_id"/>
+        <addForeignKeyConstraint baseTableName="team_membership"
+                                 baseColumnNames="team_id"
+                                 referencedTableName="team"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_team_id"/>
+    </changeSet>
+
+    <changeSet id="create-table-task" author="Ballo.Alexey">
+        <createTable tableName="task">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complexity" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deadline" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamptz">
+            </column>
+            <column name="description" type="text">
+                <constraints/>
+            </column>
+            <column name="status" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assignee_id" type="bigint">
+                <constraints/>
+            </column>
+            <column name="author_id" type="bigint">
+                <constraints/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-fk-constraints-task-table" author="Ballo.Alexey">
+        <addForeignKeyConstraint baseTableName="task"
+                                 baseColumnNames="assignee_id"
+                                 referencedTableName="member"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_task_assignee"/>
+        <addForeignKeyConstraint baseTableName="task"
+                                 baseColumnNames="author_id"
+                                 referencedTableName="member"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_task_author"/>
+    </changeSet>
+
+</databaseChangeLog>

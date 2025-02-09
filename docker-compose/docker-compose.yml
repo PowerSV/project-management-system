@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+
+  app:
+    image: 'project-management'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/project-manage-sys
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+    ports:
+      - "8080:8080"
+    networks:
+      - net
+
+  db:
+    image: 'postgres:latest'
+    container_name: 'java-postgres'
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=project-manage-sys
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge

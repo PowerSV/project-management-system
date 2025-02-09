@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="insert-data-team_members" author="Ballo.Alexey">
+        <insert tableName="team_member">
+            <column name="team_id" value="1"/>
+            <column name="member_id" value="1"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+        <insert tableName="team_member">
+            <column name="team_id" value="2"/>
+            <column name="member_id" value="3"/>
+            <column name="role" value="DEVELOPER"/>
+        </insert>
+        <insert tableName="team_member">
+            <column name="team_id" value="2"/>
+            <column name="member_id" value="2"/>
+            <column name="role" value="ANALYST"/>
+        </insert>
+        <insert tableName="team_member">
+            <column name="team_id" value="2"/>
+            <column name="member_id" value="1"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+        <insert tableName="team_member">
+            <column name="team_id" value="3"/>
+            <column name="member_id" value="1"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+        <insert tableName="team_member">
+            <column name="team_id" value="3"/>
+            <column name="member_id" value="2"/>
+            <column name="role" value="TESTER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="refactor-fk-task-table" author="Ballo.Alexey">
+        <dropAllForeignKeyConstraints baseTableName="task"/>
+        <addForeignKeyConstraint baseTableName="task"
+                                 baseColumnNames="assignee_id"
+                                 referencedTableName="team_member"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_task_assignee"/>
+        <addForeignKeyConstraint baseTableName="task"
+                                 baseColumnNames="author_id"
+                                 referencedTableName="team_member"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_task_author"/>
+    </changeSet>
+
+
+</databaseChangeLog>

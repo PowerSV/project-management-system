@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title th:remove="all">Template for HTML email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p>
+    Здравствуйте, <span th:text="${name}">Алексей</span>!
+</p>
+
+<p>
+    Вам назначена новая задача "<span th:text="${taskName}">без названия</span>" c <b>Дедлайном</b> до
+    <span th:text="${deadline}">неопределленного срока</span>
+</p>
+<p>
+    Автор задачи:
+    <span th:text="${author}">Неизвестный автор</span>
+
+    <br>Удачи!<br/>
+    <em>Какая-то IT компания</em>
+</p>
+</body>
+</html>

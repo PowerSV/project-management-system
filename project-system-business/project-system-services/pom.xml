@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>ru.ballo.projects</groupId>
+        <artifactId>project-system-business</artifactId>
+        <version>${revision}${changelist}</version>
+    </parent>
+
+    <artifactId>project-system-services</artifactId>
+
+    <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>ru.ballo.projects</groupId>
+            <artifactId>project-system-dto</artifactId>
+            <version>${revision}${changelist}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.ballo.projects</groupId>
+            <artifactId>project-system-models</artifactId>
+            <version>${revision}${changelist}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.ballo.projects</groupId>
+            <artifactId>project-system-repositories</artifactId>
+            <version>${revision}${changelist}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.ballo.projects</groupId>
+            <artifactId>project-system-email</artifactId>
+            <version>${revision}${changelist}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>
